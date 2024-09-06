@@ -1,30 +1,48 @@
 class Assignation {
-  assignTache(assigne) {
-    this.employe = assigne.employe;
-    this.tache = assigne.tache;
-    this.dateAssignation = assigne.dateAssignation;
+  static #tabAssignations = [];
 
-    console.log(
-      `Assignation de ${this.employe.nom} à ${this.tache.nom} à la date de ${this.dateAssignation}`
-    );
+
+  static getTab(){
+    return Assignation.#tabAssignations;
   }
-  dropAssign(date) {
-    this.dateAssignation = date;
-    console.log(`${this.dateAssignation} a été supprimée`);
+  static assign({ employe, tache, dateAssignation }) {
+    Assignation.#tabAssignations.push({ employe, tache, dateAssignation });
   }
-  getAssign() {
-    return {
-      employe: this.employe,
-      tache: this.tache,
-      dateAssignation: this.dateAssignation,
-    };
+
+  static dropAssign(employe) {
+    if (employe) {
+      Assignation.#tabAssignations = Assignation.#tabAssignations.filter(
+        (emp) => {
+          return emp.employe.nom !== employe.nom
+        }
+      );
+    }
   }
-  // getEmpAssign() {
-  //     return { employe: this.employe}
-  // }
-  // getTacheAssign() {
-  //     return { tache: this.tache }
-  // }
+
+  static getEmpAssign(employe) {
+    console.log(`${employe} existe`)
+    if (employe) {
+      return Assignation.#tabAssignations
+        .filter(emp => emp.employe.nom === employe.nom)
+        .map(ass => {
+          return {
+            tache: ass.tache,
+            dateAssignation: ass.dateAssignation,
+          };
+        });
+    }
+  }
+
+  static getTacheAssign(tache) {
+    if (tache) {
+      Assignation.#tabAssignations = Assignation.#tabAssignations
+        .filter((tsk) => tsk.tache === tache)
+        .map((ass) => {
+          return {
+            employe: ass.employe
+          };
+        });
+    }
+  }
 }
-
 export { Assignation };

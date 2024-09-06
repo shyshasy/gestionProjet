@@ -72,37 +72,23 @@ app.get("/app", (req, res) => {
     statut: "A faire",
     priorite: "Basse",
   });
+  console.log("**************")
+  // Assignation.assign({employe: e1.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
+  // Assignation.assign({employe: e1.getEmp(), tache: t2.getTache(), dateAssignation: new Date()})
+  // Assignation.assign({employe: e2.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
+  Assignation.assign({employe: e1.getEmp(), tache: t3.getTache(), dateAssignation: new Date()})
+  Assignation.assign({employe: e2.getEmp(), tache: t2.getTache(), dateAssignation: new Date()})
 
-  let assignation = [];
+  const assignation = Assignation.getTab()
+  const resulFiltre = Assignation.getEmpAssign(e1.getEmp());
 
-  const assign1 = new Assignation();
-  assign1.assignTache({
-    employe: e1,
-    tache: t2,
-    dateAssignation: "02-09-2024",
-  });
+  const newAssignation = Assignation.getTab()
 
-  const assign2 = new Assignation();
-  assign2.assignTache({
-    employe: e2,
-    tache: t3,
-    dateAssignation: "02-09-2025",
-  });
+  Assignation.assign({employe: e2.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
 
-  const assign3 = new Assignation();
-  assign3.assignTache({
-    employe: e3,
-    tache: t1,
-    dateAssignation: "02-09-2026",
-  });
-
-  assignation.push(
-    assign1.getAssign(),
-    assign2.getAssign(),
-    assign3.getAssign()
-  );
-
-  res.status(200).json({ assignation });
+  const testEcrase = Assignation.getTab()
+  
+  res.status(200).json({newAssignation, testEcrase, resulFiltre});
 });
 
 app.listen(port, () => {
