@@ -18,7 +18,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 1. **Clonez le repository :**
 
 ```bash
-    git clone <https://github.com/Aichetou-Gaye/gestion-projets-express.git>
+    git clone https://github.com/shyshasy/gestionProjet.git
 ```
 
 2. **Accédez au dossier du projet :**
@@ -60,5 +60,5 @@ npm start
 ```
 ## Auteur
 
-[Aichetou GAYE](https://github.com/Aichetou-Gaye)
+[Aichetou Taher Sy](https://github.com/shyshasy)
 # gestionProjet
