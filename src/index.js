@@ -8,11 +8,13 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.get("/app", (req, res) => {
+  // Création des employés
   const e1 = new Employes();
   e1.createEmp({
     nom: "Gaye",
@@ -32,6 +34,7 @@ app.get("/app", (req, res) => {
     dateEmbauche: "10-11-2024",
     statut: "CDI",
   });
+
   const e3 = new Employes();
   e3.createEmp({
     nom: "Sem",
@@ -42,6 +45,7 @@ app.get("/app", (req, res) => {
     statut: "CDD",
   });
 
+  // Création des tâches
   const t1 = new Taches();
   t1.createTache({
     nom: "Integration de la maquette",
@@ -72,25 +76,23 @@ app.get("/app", (req, res) => {
     statut: "A faire",
     priorite: "Basse",
   });
-  console.log("**************")
-  // Assignation.assign({employe: e1.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
-  // Assignation.assign({employe: e1.getEmp(), tache: t2.getTache(), dateAssignation: new Date()})
-  // Assignation.assign({employe: e2.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
-  Assignation.assign({employe: e1.getEmp(), tache: t3.getTache(), dateAssignation: new Date()})
-  Assignation.assign({employe: e2.getEmp(), tache: t2.getTache(), dateAssignation: new Date()})
 
-  const assignation = Assignation.getTab()
-  const resulFiltre = Assignation.getEmpAssign(e1.getEmp());
+  // Assignation des tâches aux employés
+  Assignation.assign({ employe: e1.getEmp()[0], tache: t3.getTache()[0], dateAssignation: new Date() });
+  Assignation.assign({ employe: e2.getEmp()[0], tache: t2.getTache()[0], dateAssignation: new Date() });
 
-  const newAssignation = Assignation.getTab()
+  // Récupération des données
+  const assignation = Assignation.getTab();
+  const resulFiltre = Assignation.getEmpAssign(e1.getEmp()[0]);
 
-  Assignation.assign({employe: e2.getEmp(), tache: t1.getTache(), dateAssignation: new Date()})
+  const newAssignation = Assignation.getTab();
+  Assignation.assign({ employe: e2.getEmp()[0], tache: t1.getTache()[0], dateAssignation: new Date() });
+  const testEcrase = Assignation.getTab();
 
-  const testEcrase = Assignation.getTab()
-  
-  res.status(200).json({newAssignation, testEcrase, resulFiltre});
+  // Réponse JSON
+  res.status(200).json({ newAssignation, testEcrase, resulFiltre });
 });
 
 app.listen(port, () => {
-  console.log("Successfully connected");
+  console.log(`Server running at http://localhost:${port}/`);
 });
